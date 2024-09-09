@@ -19,7 +19,7 @@ def main_menu():
                       '3.- Press 3 to access the distribution centers menu\n'
                       '4.- Press 4 to access the interconnections menu\n'
                       '5.- Press 5 to enter simulation of the entire system over a number of days\n'
-                      '6.- Press 6 to access your files'
+                      '6.- Press 6 to access your files\n'
                       '0.- Press 0 to exit the program\n'
                       '-------------------------------------------\n')
         if not choice.isnumeric() or int(choice) not in range(7):
