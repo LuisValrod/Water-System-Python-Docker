@@ -33,18 +33,18 @@ def WS_register(water_quality):
                 ident = input('The id should be at least 3 characters long. Choose a different one\n')
 
         w_quality = input('Now, you should tell us what is the water quality of your water source:\n'
-                          '\n1.- Potable\n2.- High\n3.- Medium\n4.- Low\n5.- Non-potable\n').upper()
+                          '1.- Potable\n2.- High\n3.- Medium\n4.- Low\n5.- Non-potable\n').upper()
 
         while w_quality not in water_quality:
             if w_quality == '0':
                 exit()
                 return
             w_quality = input('Water quality just can take the following values: Potable, High, Medium, Low and '
-                              'Non-potable').upper()
+                              'Non-potable\n').upper()
 
         quantity = None
         while quantity is None or quantity <= 0:
-            quantity_val = input('How many litres does you water source hold? (Positive number)')
+            quantity_val = input('How many litres does you water source hold? (Positive number)\n')
 
             if quantity_val == '0':
                 exit()
@@ -58,7 +58,7 @@ def WS_register(water_quality):
                 print('The quantity should be a a positive number')
 
         print(f'Thank you very much, your water source is {ident}, the quality is {w_quality} and the quantity is'
-              f'{quantity} litres')
+              f' {quantity} litres')
 
         # Logic to save the water source in a json file
 
@@ -70,6 +70,22 @@ def WS_register(water_quality):
                 'type': 'WSS'
             }
         }
+
+        while True:
+            filename = input('To proceed, with need a name/ide that we will use for references to your personal records.\n'
+                'What is the name of your file? (This name is necessary to open a file or create a  new one)\n')
+            if filename == '0':
+                exit()
+                return
+            if not filename.isalnum() or len(filename)<3:
+                print('Try to use a meaningful name. Just letters or numbers, minimum 3 characters')
+            else:
+                with open(f'{filename}.txt', 'a') as f:
+                    f.write(f'{ident},{w_quality},{quantity},0,WSS\n')
+                break
+
+
+
         try:
             with open('water_sources.json', 'r') as wss_json:
                 wss = json.load(wss_json)
@@ -81,13 +97,9 @@ def WS_register(water_quality):
             with open('water_sources.json', 'w') as wss_json:
                 json.dump(wss, wss_json, indent=4)
 
-        # Logic to make a security copy
-        sc = input('would you like to create a security copy with you own identifier? (y/n)')
 
-        if sc in ['y', 'Y']:
-            pass
-        else:
-            pass
+
+
 
         new_register = input('Would you like to register another water source? (y/n)')
 

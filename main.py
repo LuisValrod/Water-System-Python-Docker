@@ -6,7 +6,7 @@ from WS import water_source_management_system
 PENALTIES_WS = {'HIGH': 0, 'MEDIUM': 0.1, 'LOW': 0.2 }
 PENALTIES_WTP = {'HIGH': 0, 'MEDIUM': 0.1, 'LOW': 0.2 }
 WATER_QUALITY = ['POTABLE', 'HIGH', 'MEDIUM', 'LOW', 'NON-POTABLE']
-EFFICIENCY = ['HIHG', 'MEDIUM', 'LOW']
+EFFICIENCY = ['HIGH', 'MEDIUM', 'LOW']
 
 
 def main_menu():
