@@ -2,6 +2,7 @@ import time
 from exit import exit
 from clear_console import clear_console
 from WS import water_source_management_system
+from WTP import water_treatment_plant_management_system
 
 PENALTIES_WS = {'HIGH': 0, 'MEDIUM': 0.1, 'LOW': 0.2 }
 PENALTIES_WTP = {'HIGH': 0, 'MEDIUM': 0.1, 'LOW': 0.2 }
@@ -32,8 +33,8 @@ def main_menu():
 
         elif choice =='2':
             # Water Treatment Plant
-            clear_console()
-            print('Program Coming')
+            water_treatment_plant_management_system(EFFICIENCY)
+
 
         elif choice =='3':
             # Distribution
