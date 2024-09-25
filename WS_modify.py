@@ -42,6 +42,46 @@ def update_quality(water_quality, user_s_l, wss_change, fname):
           f'Going back to the main menu')
     time.sleep(2)
 
+def update_quantity(user_s_l, wss_change, fname):
+    text_to_save = ''
+    new_quantity = None
+    while new_quantity is None or new_quantity <= 0:
+        quantity_val = input('Please, provide the new amount of your water source (Positive number)\n')
+
+        if quantity_val == '0':
+            exit()
+            return
+
+        try:
+            new_quantity = int(quantity_val)
+            if new_quantity <= 0:
+                print('The quantity should be a positive number')
+        except ValueError:
+            print('The quantity should be a a positive number')
+
+    # logic to save changes in txt file
+    for ws in user_s_l:
+        l_ws = ws.split(',')
+        if wss_change in l_ws:
+            l_ws[2] = str(new_quantity)
+        text_to_save += ','.join(l_ws)
+    with open(f'{fname}.txt', 'w') as f:
+        f.write(text_to_save)
+
+    # logic to save changes in json file
+    with open('water_sources.json', 'r') as ws_json:
+        wss = json.load(ws_json)
+        wss[wss_change]['quantity'] = new_quantity
+    with open('water_sources.json', 'w') as wss_json:
+        json.dump(wss, wss_json, indent=4)
+
+    # Confirmation
+    clear_console()
+    print(f'The water quantity of {wss_change} was change to {new_quantity} succesfully!\n'
+          f'Going back to the main menu')
+    time.sleep(2)
+
+
 def WS_modify(water_quality):
     clear_console()
 
@@ -143,8 +183,10 @@ def WS_modify(water_quality):
             break
 
         if update == '2':
-            pass
+            update_quantity(user_s_l, wss_change, fname)
+            break
         if update == '3':
+            #delete_water_wource
             pass
 
 
