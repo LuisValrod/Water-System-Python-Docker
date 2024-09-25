@@ -81,6 +81,41 @@ def update_quantity(user_s_l, wss_change, fname):
           f'Going back to the main menu')
     time.sleep(2)
 
+def delete_water_source(user_s_l, wss_change, fname):
+    confirmation = input('Are you sure you want to delete your water source? (y/n)\n')
+    if confirmation in ['y', 'Y']:
+        text_to_save = ''
+
+        # logic to save changes in txt file
+        for ws in user_s_l:
+            l_ws = ws.split(',')
+            if wss_change in l_ws:
+                continue
+            text_to_save += ','.join(l_ws)
+
+        with open(f'{fname}.txt', 'w') as f:
+            f.write(text_to_save)
+
+        # logic to save changes in json file
+        with open('water_sources.json', 'r') as ws_json:
+            wss = json.load(ws_json)
+            wss.pop(wss_change)
+        with open('water_sources.json', 'w') as wss_json:
+            json.dump(wss, wss_json, indent=4)
+
+        clear_console()
+        print(f'{wss_change} was deleted successfully!\n'
+              f'Going back to the main menu')
+        time.sleep(2)
+
+
+    else:
+        print('Cancelling deletion...')
+        time.sleep(1)
+        exit()
+        return
+
+
 
 def WS_modify(water_quality):
     clear_console()
@@ -185,9 +220,10 @@ def WS_modify(water_quality):
         if update == '2':
             update_quantity(user_s_l, wss_change, fname)
             break
+
         if update == '3':
-            #delete_water_wource
-            pass
+            delete_water_source(user_s_l, wss_change, fname)
+            break
 
 
 
