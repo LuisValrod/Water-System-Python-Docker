@@ -1,4 +1,5 @@
 from exit import exit
+import time
 from WS_register import WS_register
 from WS_modify import WS_modify
 def water_source_management_system(WATER_QUALITY):
@@ -12,12 +13,14 @@ def water_source_management_system(WATER_QUALITY):
             print('Please, enter a valid command')
 
         elif mode == '1':
-            print('processing register')
+            print('Loading register program ...')
+            time.sleep(2)
             WS_register(WATER_QUALITY)
             is_on = False
 
         elif mode == '2':
-            print('processing modify')
+            print('Loading modify program ...')
+            time.sleep(2)
             WS_modify(WATER_QUALITY)
             is_on = False
 

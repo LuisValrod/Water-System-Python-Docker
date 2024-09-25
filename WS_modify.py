@@ -3,6 +3,45 @@ import time
 from clear_console import clear_console
 from exit import exit
 
+def update_quality(water_quality, user_s_l, wss_change, fname):
+    text_to_save = ''
+
+    while True:
+        new_quality = input('Please provide the new quality of the water of you water source\n'
+                            '(Values available: POTABLE, HIGH, LOW, NON-POTABLE)\n').upper()
+
+        if new_quality == '0':
+            exit()
+            return
+
+        if new_quality in water_quality:
+            break
+        print('Invalid Input')
+
+    # logic to save changes in txt file
+    for ws in user_s_l:
+        l_ws = ws.split(',')
+        if wss_change in l_ws:
+            l_ws[1] = new_quality
+
+        text_to_save += ','.join(l_ws)
+    with open(f'{fname}.txt', 'w') as f:
+        f.write(text_to_save)
+
+    # logic to save changes in json file
+    with open('water_sources.json', 'r') as ws_json:
+        wss = json.load(ws_json)
+        wss[wss_change]['quality'] = new_quality
+    with open('water_sources.json', 'w') as wss_json:
+        json.dump(wss, wss_json, indent=4)
+
+
+
+    clear_console()
+    print(f'The water quality of {wss_change} was change to {new_quality} succesfully!\n'
+          f'Going back to the main menu')
+    time.sleep(2)
+
 def WS_modify(water_quality):
     clear_console()
 
@@ -48,6 +87,10 @@ def WS_modify(water_quality):
                     if ws.split(',')[-1].strip() == 'WSS':
                         l_of_wss.append(ws.split(',')[0])
                         print(f'- {ws.split(',')[0]}: {ws.split(',')[1]} quality; {ws.split(',')[2]} litres')
+            else:
+                for ws in user_s_l:
+                    l_of_wss.append(ws.split(',')[0])
+
             break
 
 
@@ -78,26 +121,36 @@ def WS_modify(water_quality):
 
     print(f'You wish to modify {wss_change}')
 
-    update = int(input('Please, tell us what you would like to do:\n'
+    update = input('Please, tell us what you would like to do:\n'
                        '- Press 1 to update the quality\n'
                        '- Press 2 to update the quantity\n'
                        '- Press 3 to delete the water source from our system\n'
-                       '- Press 0 to go back to the main menu\n'))
-    while update not in range(0, 4):
-        update = int(input('Please, select a valid input:\n'
+                       '- Press 0 to go back to the main menu\n')
+    while update not in ['0', '1', '2', '3']:
+        update = input('Please, select a valid input:\n'
                        '- Press 1 to update the quality\n'
                        '- Press 2 to update the quantity\n'
                        '- Press 3 to delete the water source from our system\n'
-                       '- Press 0 to go back to the main menu\n'))
+                       '- Press 0 to go back to the main menu\n')
 
     # Update block
     while True:
-        if update == 0:
+        if update == '0':
             exit()
             return
+        if update == '1':
+            update_quality(water_quality, user_s_l, wss_change, fname)
+            break
+
+        if update == '2':
+            pass
+        if update == '3':
+            pass
 
 
 
 # with open('luis1987.txt') as f:
 #     for n in f.readlines():
 #         print(n.split(",")[-1])
+
+

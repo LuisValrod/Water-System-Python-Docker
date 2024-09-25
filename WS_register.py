@@ -72,7 +72,7 @@ def WS_register(water_quality):
         }
 
         while True:
-            filename = input('To proceed, with need a name/ide that we will use for references to your personal records.\n'
+            filename = input('To proceed, with need a name/id that we will use for references to your personal records.\n'
                 'What is the name of your file? (This name is necessary to open a file or create a  new one)\n')
             if filename == '0':
                 exit()
@@ -101,7 +101,7 @@ def WS_register(water_quality):
 
 
 
-        new_register = input('Would you like to register another water source? (y/n)')
+        new_register = input('Would you like to register another water source? (y/n)\n')
 
         if new_register in ['y', 'Y']:
             pass
