@@ -57,7 +57,8 @@ def WTP_register(efficiency):
             except ValueError:
                 print('The quantity should be a a positive number')
 
-        print(f'Thank you very much, your water treatment plant is {ident}, the efficiency is {w_efficiency} and the amount of litres it can'
+        print(f'Thank you very much, your water treatment plant is {ident}, the efficiency is {w_efficiency} '
+              f'and the amount of litres it can'
               f'treat is {quantity} litres')
 
         # Logic to save the water source in a json file
@@ -66,6 +67,8 @@ def WTP_register(efficiency):
             ident: {
                 'efficiency': w_efficiency,
                 'quantity': quantity,
+                'quantity_used': 0,
+                'potable_available': 0,
                 'usage': 0,
                 'type': 'WTP'
             }
@@ -82,7 +85,7 @@ def WTP_register(efficiency):
                 print('Try to use a meaningful name. Just letters or numbers, minimum 3 characters')
             else:
                 with open(f'{filename}.txt', 'a') as f:
-                    f.write(f'{ident},{w_efficiency},{quantity},0,WTP\n')
+                    f.write(f'{ident},{w_efficiency},{quantity},0,0,0,WTP\n')
                 break
 
         try:
@@ -102,7 +105,7 @@ def WTP_register(efficiency):
             pass
 
         else:
-            register_is_on = False
+            # register_is_on = False
             exit()
             return
 

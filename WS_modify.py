@@ -21,7 +21,7 @@ def update_quality(water_quality, user_s_l, wss_change, fname):
     # logic to save changes in txt file
     for ws in user_s_l:
         l_ws = ws.split(',')
-        if wss_change in l_ws:
+        if wss_change in l_ws and l_ws[-1].strip() == 'WSS':
             l_ws[1] = new_quality
 
         text_to_save += ','.join(l_ws)
@@ -62,7 +62,7 @@ def update_quantity(user_s_l, wss_change, fname):
     # logic to save changes in txt file
     for ws in user_s_l:
         l_ws = ws.split(',')
-        if wss_change in l_ws:
+        if wss_change in l_ws and l_ws[-1].strip() == 'WSS':
             l_ws[2] = str(new_quantity)
         text_to_save += ','.join(l_ws)
     with open(f'{fname}.txt', 'w') as f:
@@ -89,7 +89,7 @@ def delete_water_source(user_s_l, wss_change, fname):
         # logic to save changes in txt file
         for ws in user_s_l:
             l_ws = ws.split(',')
-            if wss_change in l_ws:
+            if wss_change in l_ws and l_ws[-1].strip() == 'WSS':
                 continue
             text_to_save += ','.join(l_ws)
 

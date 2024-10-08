@@ -1,6 +1,7 @@
 from exit import exit
 import time
 from WTP_register import WTP_register
+from WTP_modify import WTP_modify
 
 def water_treatment_plant_management_system(EFFICIENCY):
     print(' ----------WATER TREATMENT PLANT MANAGEMENT SYSTEM---------- ')
@@ -21,7 +22,7 @@ def water_treatment_plant_management_system(EFFICIENCY):
         elif mode == '2':
             print('Loading modify program ...')
             time.sleep(1)
-            #WTP_modify(WATER_QUALITY)
+            WTP_modify(EFFICIENCY)
             is_on = False
 
         elif mode == '0':
